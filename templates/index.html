@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Program meringkas PDF/PPT lalu Konversi ke Audio</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <p>Tentang Aplikasi:</p>
+    <p>Aplikasi hanya menerima input berupa file berekstensi .pdf atau .pptx saja</p>
+
+    <p>Petunjuk penggunaan:</p>
+    <p>1. Masukkan file berekstensi .pdf atau .pptx.</p>
+    <p>2. Masukkan nama untuk file hasil akhir.</p>
+    <p>3. Klik tombol proses lalu tunggu hingga proses selesai dan output tampil</p>
+    
+    <h2>Upload file untuk diringkas dan dikonversi:</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label>Masukkan file:  (.pdf atau .pptx):</label><br>
+        <input type="file" name="file" accept=".pdf,.pptx" required><br><br>
+
+        <label>Nama file output (tanpa .mp3):</label><br>
+        <input type="text" name="output_name" placeholder="ringkasan_audio" required><br><br>
+
+        <button type="submit">Proses</button>
+    </form>
+
+    {% if summary %}
+        <h3>📃 Ringkasan teks</h3>
+        <pre style="background-color:#f0f0f0; padding:10px;">{{ summary }}</pre>
+        <a href="{{ summary_url }}" download>⬇️ Download Ringkasan (.txt)</a>
+    {% endif %}
+
+    {% if audio_url %}
+        <h3>🔊 Hasil audio</h3>
+        <audio controls>
+            <source src="{{ audio_url }}" type="audio/mpeg">
+            Browser Anda tidak mendukung elemen audio.
+        </audio><br>
+        <a href="{{ audio_url }}" download>⬇️ Download Audio (.mp3)</a>
+    {% endif %}
+</body>
+</html>
