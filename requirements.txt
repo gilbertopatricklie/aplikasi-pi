@@ -4,4 +4,4 @@ python-pptx
 gtts
 transformers
 torch
-sentencepie
+sentencepiece

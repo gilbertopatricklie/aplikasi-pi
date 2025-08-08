@@ -7,6 +7,7 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
 import re
 
+
 #init flask
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -51,20 +52,10 @@ def chunk_text(text, max_words=200, overlap=50):
         i += max_words - overlap
     return chunks
 
-# def chunk_text(text, tokenizer, max_tokens=450, overlap=50):
-#     tokens = tokenizer.encode(text, add_special_tokens=False)
-#     chunks = []
-#     i = 0
-#     while i < len(tokens):
-#         chunk = tokens[i:i + max_tokens]
-#         chunk_text = tokenizer.decode(chunk, skip_special_tokens=True)
-#         chunks.append(chunk_text)
-#         i += max_tokens - overlap
-#     return chunks
 
 #ringkas dari chunk
 def summarize_chunk(chunk_text, max_output=150):
-    input_text = "Hasil Ringkasan: " + chunk_text
+    input_text = "Ringkasan: " + chunk_text
     inputs = tokenizer.encode(input_text, return_tensors="pt", truncation=True, max_length=512)
     with torch.no_grad():
         summary_ids = model.generate(
@@ -73,9 +64,11 @@ def summarize_chunk(chunk_text, max_output=150):
             min_length=30,
             num_beams=4,
             length_penalty=2.0,
-            early_stopping=True
+            early_stopping=False
         )
-    return tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+    summary = re.sub(r'Ringkasan:\s*', '', summary)
+    return summary
 
 #ringkas teksnya
 def summarize_text(text, max_output=150):
@@ -84,11 +77,6 @@ def summarize_text(text, max_output=150):
    final_summary = " ".join(summaries)
    return final_summary
 
-# def summarize_text(text, max_output=150):
-#     chunks = chunk_text(text, tokenizer)
-#     summaries = [summarize_chunk(chunk, max_output=max_output) for chunk in chunks]
-#     final_summary = " ".join(summaries)
-#     return final_summary
 
 #convert teks ke audio
 def text_to_audio(text, output_path):
@@ -115,7 +103,7 @@ def upload():
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     uploaded_file.save(filepath)
 
-    # Ekstraksi teks
+    # percabangan ekstraksi teks
     if filename.endswith('.pdf'):
         text = extract_text_from_pdf(filepath)
     else:
