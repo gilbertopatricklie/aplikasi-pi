@@ -5,38 +5,57 @@
      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <p>Tentang Aplikasi:</p>
-    <p>Aplikasi hanya menerima input berupa file berekstensi .pdf atau .pptx saja</p>
+    <div class="wrapper">
+        <div class="about">
+            <p>Tentang Aplikasi:</p>
+            <p>Pembuat platform: <a href="https://github.com/gilbertopatricklie" target="_blank">Gilberto Patrick Lie.</a></p><br>
+            <p>1. Informasi mengenai model dapat dilihat: <a href="https://huggingface.co/cahya/t5-base-indonesian-summarization-cased" target="_blank">Di sini.</a></p>
+            <p>2. Informasi mengenai pustaka pymupdf: <a href="https://pymupdf.readthedocs.io/en/latest/" target="_blank">Di sini.</a></p>
+            <p>3. Informasi mengenai pustaka pptx: <a href="https://python-pptx.readthedocs.io/en/latest/" target="_blank">Di sini.</a></p>
+            <p>4. Informasi mengenai pustaka gTTS: <a href="https://pypi.org/project/gTTS/" target="_blank">Di sini.</a></p>
+            <p>--------------------------------------</p>
+            <p>Petunjuk penggunaan:</p>
+            <p>1. Masukkan file berekstensi .pdf atau .pptx.</p>
+            <img src="../static/media/pdfppt.jpeg">
+            <p>2. Masukkan nama untuk file hasil akhir.</p>
+            <img src="../static/media/filename.jpeg">
+            <p>3. Klik tombol proses lalu tunggu hingga proses selesai dan output tampil</p>
+            <img src="../static/media/klikbutton(1).gif">
+        </div>
+        
+        <div class="container">
+            <h2>Upload file untuk diringkas dan dikonversi:</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <label>Masukkan file:  (.pdf atau .pptx):</label><br>
+                <input type="file" name="file" accept=".pdf,.pptx" required><br><br>
 
-    <p>Petunjuk penggunaan:</p>
-    <p>1. Masukkan file berekstensi .pdf atau .pptx.</p>
-    <p>2. Masukkan nama untuk file hasil akhir.</p>
-    <p>3. Klik tombol proses lalu tunggu hingga proses selesai dan output tampil</p>
+                <label>Nama file output (tanpa .mp3):</label><br>
+                <input type="text" name="output_name" placeholder="ringkasan_audio" required><br><br>
+
+                <button type="submit">Proses</button>
+            </form>
+
+            {% if summary %}
+                <h3>📃 Hasil Ringkasan AI</h3>
+                <pre style="background-color:#f0f0f0; padding:10px;">{{ summary }}</pre>
+                <a href="{{ summary_url }}" download>⬇️ Download Ringkasan</a>
+            {% endif %}
+
+            {% if audio_url %}
+                <h3>🔊 Hasil audio</h3>
+                <audio controls>
+                    <source src="{{ audio_url }}" type="audio/mpeg">
+                    Browser Anda tidak mendukung elemen audio.
+                </audio><br>
+                <a href="{{ audio_url }}" download>⬇️ Download Audio</a>
+            {% endif %}
+            </div>
+    </div>
     
-    <h2>Upload file untuk diringkas dan dikonversi:</h2>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <label>Masukkan file:  (.pdf atau .pptx):</label><br>
-        <input type="file" name="file" accept=".pdf,.pptx" required><br><br>
+    <footer class="footer">
+        <p>Aplikasi Ringkasan & Konversi Audio Otomatis.</p>
+        <a href="https://github.com/gilbertopatricklie" target="_blank">© Gilberto Patrick Lie.</a>
+    </footer>
 
-        <label>Nama file output (tanpa .mp3):</label><br>
-        <input type="text" name="output_name" placeholder="ringkasan_audio" required><br><br>
-
-        <button type="submit">Proses</button>
-    </form>
-
-    {% if summary %}
-        <h3>📃 Ringkasan teks</h3>
-        <pre style="background-color:#f0f0f0; padding:10px;">{{ summary }}</pre>
-        <a href="{{ summary_url }}" download>⬇️ Download Ringkasan (.txt)</a>
-    {% endif %}
-
-    {% if audio_url %}
-        <h3>🔊 Hasil audio</h3>
-        <audio controls>
-            <source src="{{ audio_url }}" type="audio/mpeg">
-            Browser Anda tidak mendukung elemen audio.
-        </audio><br>
-        <a href="{{ audio_url }}" download>⬇️ Download Audio (.mp3)</a>
-    {% endif %}
 </body>
 </html>

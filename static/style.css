@@ -1,72 +1,146 @@
-body {
-            font-family: Arial, sans-serif;
-            max-width: 700px;
-            margin: 40px auto;
-            background-color: #f9f9f9;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        h2, h3 {
-            color: #333;
-            text-align: center;
-        }
 
-        label {
-            font-weight: bold;
-        }
+.wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: Arial, sans-serif;
+}
 
-        input[type="file"],
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
 
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-        }
+.about {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 245px;
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    padding: 30px 20px;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
+    border-right: 2px solid #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.6;
+    overflow-y: auto;
+    color: #ffffff;
+    border-radius: 0 12px 12px 0;
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+.container {
+    flex: 1;
+    max-width: 700px;
+    margin: 40px auto;
+    margin-left: 260px; 
+    padding: 50px 40px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e5e5e5;
+}
 
-        pre {
-            background-color: #eee;
-            padding: 15px;
-            border-left: 4px solid #007BFF;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            border-radius: 6px;
-        }
 
-        a {
-            display: inline-block;
-            margin-top: 10px;
-            text-decoration: none;
-            background-color: #28a745;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-        }
+.container h2,
+.container h3 {
+    color: #222;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        a:hover {
-            background-color: #218838;
-        }
 
-        audio {
-            margin-top: 10px;
-            width: 100%;
-        }
+.container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+}
 
+
+.container input[type="file"],
+.container input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
+.container input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+    outline: none;
+}
+
+
+.container button {
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.container button:hover {
+    background: linear-gradient(135deg, #0056b3, #003d80);
+    transform: scale(1.02);
+}
+
+
+.container pre {
+    background: #f4f6f8;
+    padding: 15px;
+    border-left: 4px solid #007BFF;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+
+.container a {
+    display: inline-block;
+    margin-top: 12px;
+    text-decoration: none;
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.container a:hover {
+    background: linear-gradient(135deg, #218838, #1a682c);
+    transform: scale(1.02);
+}
+
+
+.container audio {
+    margin-top: 12px;
+    width: 100%;
+    border-radius: 6px;
+}
+
+
+.footer {
+    background-color: #9e98e2;
+    color: #ffffff;
+    text-align: center;
+    padding: 25px 20px;
+    margin-top: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.6;
+    border-top: 1px solid #9e98e2;
+}
